@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" />
+    <link rel="stylesheet" href="./assets/css/style.css">
+    <title>Weather Dashboard App</title>
+</head>
+<body>
+    <header>
+        <h1>Weather Dashboard</h1>
+    </header>
+    <div id="content">
+        <div id="search-bar">
+            <h3 id="city-header">Search for a city:</h3>
+            <form id="search-form">
+                <label id="form-label" for="city-search">City</label>
+                <input name="city" id="city-search" type="text" class="form-input"/>
+                <button type="submit" class="btn">Submit</button>
+            </form>
+            <ul id="city-list"></ul>
+        </div>
+        <div id="dashboard" style="display:none">
+            <div id="city-info">
+            </div>
+            <div id="5-day-forecast">
+                <h2>5-Day Forecast:</h2>
+                <section id="5-day-forecast-results"></section>
+            </div>
+        </div>
+    </div>
+
+<!-- link to day.js and jquery -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/dayjs@1.11.3/dayjs.min.js"
+    integrity="sha256-iu/zLUB+QgISXBLCW/mcDi/rnf4m4uEDO0wauy76x7U=" crossorigin="anonymous"></script>
+
+    <script src="./assets/js/script.js"></script>
+</body>
+</html>
