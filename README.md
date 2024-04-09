@@ -2,7 +2,7 @@
 
 A weather application that pulls from server side APIs
 
-Deployed Site: 
+Deployed Site: https://sleekwingx.github.io/week-6-weather-dashboard/
 
 ## References
 
