@@ -1,28 +1,12 @@
-/* function readStatesFromStorage() {
-    // Retrieve tasks from localStorage
-    let cityArray = JSON.parse(localStorage.getItem('cities'));
-  
-    // If no projects were retrieved from localStorage, assign projects to a new empty array to push to later.
-    if (cityArray === null) {
-      cityArray = [];
-    };
-  
-    return cityArray;
-}
-
-function saveStatesToStorage(cityArray) {
-    localStorage.setItem('cities', JSON.stringify(cityArray));
-} */
-
-// Function to fetch weather data
 const apiKey = '663406d2883622d0303f3f3f3f3f495f';
 const apiUrl = 'https://api.openweathermap.org/data/2.5/weather';
 const forecastApiUrl = 'https://api.openweathermap.org/data/2.5/forecast';
 
 const citySearchEl = document.querySelector("#city-search");
 const cityResultEl = document.querySelector('#city-info');
-const forecastResultEl = document.querySelector('#five-day-forecast-results');
+const forecastResultEl = document.querySelector('#forecast-container');
 const cityEl = document.querySelector('#result-city');
+const cityListEl = document.querySelector('#city-list');
 
 function fetchWeather(city) {
     return fetch(`${apiUrl}?q=${city}&appid=${apiKey}&units=metric`)
@@ -75,6 +59,11 @@ function createWeatherDashboard(weather) {
     cityResultEl.appendChild(cardState);
     cityResultEl.appendChild(cardHeader);
     cityResultEl.appendChild(cardBody);
+    
+    // Save the searched city to local storage
+    saveCityToLocalStorage(weather.name);
+    // Update the city list
+    updateCityList();
 }
 
 function fetchForecast(city) {
@@ -101,7 +90,7 @@ function createForecastCards(forecastData) {
         const temperature = forecast.main.temp;
 
         const card = document.createElement('div');
-        card.classList.add('forecast-card');
+        card.classList.add('forecast-card'); // Add forecast card class
 
         const cardDate = document.createElement('p');
         cardDate.textContent = date.toDateString();
@@ -125,8 +114,8 @@ document.getElementById("submit-button").addEventListener("click", function (eve
     handleSearchAndDisplay();
 });
 
-function handleSearchAndDisplay() {
-    const cityInput = citySearchEl.value.trim();
+function handleSearchAndDisplay(cityName) {
+    const cityInput = cityName || citySearchEl.value.trim(); // Use provided cityName or input value from search bar
     if (cityInput !== '') {
         fetchWeather(cityInput)
             .then(data => {
@@ -150,7 +139,35 @@ function handleSearchAndDisplay() {
     } else {
         alert('Please enter a city name.');
     }
+
+    // Clear the search bar after hitting submit
+    citySearchEl.value = '';
 }
 
+function saveCityToLocalStorage(city) {
+    let cities = JSON.parse(localStorage.getItem('cities')) || [];
+    cities.push(city);
+    localStorage.setItem('cities', JSON.stringify(cities));
+}
+
+function updateCityList() {
+    cityListEl.innerHTML = ''; // Clear previous content
+    let cities = JSON.parse(localStorage.getItem('cities')) || [];
+    const uniqueCities = new Set(cities); // Convert the array to a Set to remove duplicates
+    uniqueCities.forEach(city => {
+        const li = document.createElement('li');
+        const button = document.createElement('button');
+        button.textContent = city;
+        button.addEventListener('click', function() {
+            handleSearchAndDisplay(city); // Pass the city name to the function
+        });
+        li.appendChild(button);
+        cityListEl.appendChild(li);
+    });
+}
+
+window.onbeforeunload = function() {
+    localStorage.removeItem('cities');
+};
 
 /* https://api.openweathermap.org/data/2.5/forecast?lat={lat}&lon={lon}&appid={apiKey} */

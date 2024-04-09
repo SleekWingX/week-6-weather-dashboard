@@ -12,12 +12,60 @@ header {
     display: inline;
 }
 
+#city-header {
+    font-size: larger;
+}
+
+#forecast-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.forecast-card {
+    width: calc(20% - 10px);
+    margin-bottom: 20px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: center;
+}
+
+/* below noted elements assisted by xpert for styling elements to hug the left side of the screen */
 #search-bar {
+    float: left; /* Float the search bar element to the left */
+    width: 30%; /* Set the width of the search bar element */
     padding: 5px;
     width: 25%;
     background-color: rgb(210, 210, 210);
 }
 
-#city-header {
-    font-size: larger;
+#search-form {
+    margin-bottom: 10px; /* Add some space below the form */
+}
+
+#city-list {
+    list-style-type: none; /* Remove default list styling */
+    padding: 0; /* Remove default padding */
+}
+
+.form-input {
+    width: 80%; /* Set the width of the input field */
+    padding: 5px; /* Add some padding to the input field */
+    margin: 5px 0; /* Add margin to the input field */
+}
+
+.btn {
+    background-color: #007bff; /* Set button background color */
+    color: white; /* Set button text color */
+    padding: 5px 10px; /* Add padding to the button */
+    border: none; /* Remove button border */
+    cursor: pointer; /* Change cursor to pointer on hover */
+}
+
+#dashboard {
+    float: left; /* Float the dashboard element to the left */
+    width: 70%; /* Set the width of the dashboard element */
+    padding-left: 20px; /* Add some padding to the left of the dashboard */
 }
